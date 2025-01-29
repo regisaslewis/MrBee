@@ -9,6 +9,8 @@ def word_check(word):
     print("Acceptable word.")
     return word
 
+successful_guesses = []
+
 def player_guess(word, guess):
     word_letters = [n for n in word]
     guess_letters = [n for n in guess]
@@ -22,15 +24,17 @@ def player_guess(word, guess):
     if len(guess) < 4:
         print(f"{guess}:  Too few letters provided.")
         return False
+    if guess in successful_guesses:
+        print(f"'{guess}' is already used.")
+        return False
     else:
+        successful_guesses.append(guess)
         print(f"{guess}: Success!")
         return True
 
 test_word = input("Test sample validity: ")
 
 sample_letters = sorted(set([n for n in test_word]), key=test_word.index)
-
-successful_guesses = []
 
 if word_check(test_word):
     necessary_letter = sample_letters[0]
@@ -45,8 +49,5 @@ if word_check(test_word):
             exit()
         if player_choice == "1":
             print(successful_guesses)
-        elif player_choice in successful_guesses:
-            print(f"'{player_choice}' is already used.")
         else:
-            if player_guess(sample_letters, player_choice):
-                successful_guesses.append(player_choice)
+            player_guess(sample_letters, player_choice)
