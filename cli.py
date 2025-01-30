@@ -1,5 +1,5 @@
 from word_check import word_check
-from player_guess import player_guess
+from player_guess import player_guess, successful_guesses
 
 test_word = input("Test sample validity: ")
 
