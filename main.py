@@ -1,8 +1,9 @@
-from all_words import word_list
+with open ("all_words.json", "r") as all_words:
+    word_list = all_words.read()
 
-word = "alphabet"
+word = "animal"
 
 if word in word_list:
-    print(f"{word} found at position {word_list.index(word)}")
+    print(f"'{word}:' found it!")
 else:
-    print("Word not found.")
+    print(f"'{word}' not found")
