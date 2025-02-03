@@ -1,4 +1,4 @@
-from main import word_list
+from all_words import word_list
 successful_guesses = []
 
 def player_guess(word, guess):

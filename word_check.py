@@ -1,4 +1,4 @@
-from main import word_list
+from all_words import word_list
 
 def word_check(word):
     letters = set([n for n in word])
