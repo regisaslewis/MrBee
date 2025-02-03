@@ -1,7 +1,6 @@
-with open ("all_words.json", "r") as all_words:
-    word_list = all_words.read()
+from all_words import word_list
 
-word = "animal"
+word = input("Test word: ")
 
 if word in word_list:
     print(f"'{word}:' found it!")
