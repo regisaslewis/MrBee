@@ -1,8 +1,8 @@
-from all_words import word_list
+from all_words import word_dictionary
 
 def word_check(word):
     letters = set([n for n in word])
-    if word not in word_list:
+    if word not in word_dictionary:
         print(f"'{word}' is not found in our dictionary.")
         return False
     if len(letters) < 7:

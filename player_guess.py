@@ -1,4 +1,4 @@
-from all_words import word_list
+from all_words import word_dictionary
 successful_guesses = []
 
 def player_guess(word, guess):
@@ -14,7 +14,7 @@ def player_guess(word, guess):
     if len(guess) < 4:
         print(f"{guess}: Too few letters provided.")
         return False
-    if guess not in word_list:
+    if guess not in word_dictionary:
         print(f"'{guess}' is not found in our dictionary.")
         return False
     if guess in successful_guesses:
