@@ -1,15 +1,15 @@
 from all_words import word_dictionary
 successful_guesses = []
 
-def player_guess(word, guess):
+def player_guess(word, necessary_letter, guess):
     word_letters = [n for n in word]
     guess_letters = [n for n in guess]
     unusable_letters = [n for n in guess_letters if n not in word_letters]
     if unusable_letters:
         print(f"Unacceptable letters: {sorted(set(unusable_letters), key=unusable_letters.index)}")
         return False
-    if word[0] not in guess:
-        print(f"Necessary letter |{word[0].upper()}| not used in '{guess}.')")
+    if necessary_letter not in guess:
+        print(f"Necessary letter |{necessary_letter.upper()}| not used in '{guess}.')")
         return False
     if len(guess) < 4:
         print(f"{guess}: Too few letters provided.")
