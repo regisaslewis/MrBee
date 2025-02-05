@@ -7,11 +7,9 @@ test_word = input("Test sample validity: ")
 sample_letters = sorted(set([n for n in test_word]))
 necessary_letter = random.choice(sample_letters)
 optional_letters = [n for n in sample_letters if n != necessary_letter]
-prompt = f"|{necessary_letter.upper()}| {optional_letters}"
-
 
 if word_check(test_word):
-    print(f"Use these letters: {prompt}")
+    print(f"Use these letters: |{necessary_letter.upper()}| {optional_letters}")
     print("Enter 0 to quit.")
     print("Enter 1 to see your words.")
     print("Enter 2 to shuffle.")
@@ -25,13 +23,13 @@ if word_check(test_word):
             print("Your words:")
             print(sorted(successful_guesses))
             print("=============")
-            print(prompt)
+            print(f"|{necessary_letter.upper()}| {optional_letters}")
         elif player_choice == "2":
             random.shuffle(optional_letters)
             print("Shuffling...")
-            print("=============")       
-            print(prompt)
+            print("=============")
+            print(f"|{necessary_letter.upper()}| {optional_letters}")
         else:
             player_guess(sample_letters, necessary_letter, player_choice.lower())
             print("=============")
-            print(prompt)
+            print(f"|{necessary_letter.upper()}| {optional_letters}")
