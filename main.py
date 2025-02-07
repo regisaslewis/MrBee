@@ -1,8 +1,15 @@
-import random
+from all_words import word_dictionary
 
-list = ["a", "b", "c", "d", "e", "f", "g"]
-necessary_item = random.choice(list)
-optional_items = [n for n in list if n != necessary_item]
+prompt_dictionary = dict.fromkeys([n for n in word_dictionary if len(set(n)) == 7], 1)
 
-print(necessary_item)
-print(optional_items)
+def prompt_checker(word):
+
+    if word in prompt_dictionary:
+        return f"{word} found"
+    else: 
+        return f"{word} not found"
+    
+print(prompt_checker("hexagon"))
+print(prompt_checker("hexagonal"))
+print(prompt_checker("lifeline"))
+print(prompt_checker("spraining"))
