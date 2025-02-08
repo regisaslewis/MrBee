@@ -1,5 +1,5 @@
 import random
-from player_guess import player_guess, successful_guesses
+from player_guess import player_guess, show_points, successful_guesses
 from prompt_generator import generate_prompt
 
 sample_letters = sorted(set([n for n in generate_prompt()]))
@@ -17,8 +17,8 @@ while True:
         print("Good Bye!")
         exit()
     elif player_choice == "1":
-        print("Your words:")
-        print(sorted(successful_guesses))
+        print(f"Your Points: {show_points()}")
+        print(f"Your Words: {sorted(successful_guesses)}")
         print("=============")
         print(f"|{necessary_letter.upper()}| {optional_letters}")
     elif player_choice == "2":
