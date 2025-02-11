@@ -20,7 +20,7 @@ def player_guess(word, necessary_letter, guess):
         print(f"'{guess}' is not found in our dictionary.")
         return False
     if guess in successful_guesses:
-        print(f"'{guess}' is already used.")
+        print(f"'{guess}' was already used.")
         return False
     if len(set(guess)) == 7:
         points += (7 + len(guess))
