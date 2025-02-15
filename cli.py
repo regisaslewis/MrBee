@@ -8,6 +8,7 @@ necessary_letter = random.choice(sample_letters)
 optional_letters = [n for n in sample_letters if n != necessary_letter]
 possible_points = find_points(necessary_letter, sample_letters)
 win_condition = 100 if possible_points > 300 else (possible_points / 3)
+grats_unshown = True
 
 print(f"Use these letters: |{necessary_letter.upper()}| {optional_letters}")
 print(f"Total Possible Points: {possible_points}")
@@ -32,10 +33,14 @@ while True:
         print("Shuffling...")
         print("=============")
         print(f"|{necessary_letter.upper()}| {optional_letters}")
+    elif player_choice == "54532":
+        print(find_words(necessary_letter, sample_letters))
+        print(find_pangrams(necessary_letter, sample_letters))
     else:
         player_guess(sample_letters, necessary_letter, player_choice.lower())
         print("=============")
         print(f"|{necessary_letter.upper()}| {optional_letters}")
-    if show_points() >= win_condition:
+    if show_points() >= win_condition and grats_unshown:
         print("We have ourselves a genius!")
         print("Enter 0 to finish or keep going!")
+        grats_unshown = False
