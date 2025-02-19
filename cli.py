@@ -1,16 +1,19 @@
 import random
 from player_guess import player_guess, show_points, successful_guesses
-from prompt_generator import generate_prompt
 from results import find_words, find_pangrams, find_points
+from prompt_collection import prompt_collection
+from datetime import date
 
-sample_letters = sorted(set([n for n in generate_prompt()]))
-necessary_letter = random.choice(sample_letters)
+today = date.today().strftime("%Y-%m-%d")
+
+sample_letters = prompt_collection.get(today)
+necessary_letter = sample_letters[0]
 optional_letters = [n for n in sample_letters if n != necessary_letter]
 possible_points = find_points(necessary_letter, sample_letters)
 win_condition = 100 if possible_points > 300 else (possible_points / 3)
 grats_unshown = True
 
-print(f"Use these letters: |{necessary_letter.upper()}| {optional_letters}")
+print(f"Letters for {today}: |{necessary_letter.upper()}| {optional_letters}")
 print(f"Total Possible Points: {possible_points}")
 print(f"Points to Genius: {win_condition}")
 print("Enter 1 to see your words.")
