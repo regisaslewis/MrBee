@@ -9,13 +9,13 @@ def read_guesses():
         while True:
             try:
                 data = pickle.load(f)
+                if today not in data:
+                    data.update({today: []})
             except EOFError:
                 break
         return data
     
 successful_guesses = read_guesses()
-if today not in successful_guesses:
-    successful_guesses[today] = []
 
 def update_sg():
     with open("successful_guesses.pkl", "ab") as f:

@@ -11,10 +11,12 @@ def main():
     possible_points = find_points(necessary_letter, sample_letters)
     win_condition = 100 if possible_points > 300 else (possible_points / 3)
     grats_unshown = True
+    read_guesses()
     today_guesses = read_guesses()[today]
 
     print(f"Letters for {today}: |{necessary_letter.upper()}| {optional_letters}")
     print(f"Total Possible Points: {possible_points}")
+    print(f"Your Current Points: {show_points()}")
     print(f"Points to Genius: {win_condition}")
     print("Enter 1 to see your words.")
     print("Enter 2 to shuffle.")
