@@ -1,9 +1,25 @@
+from datetime import date
+import pickle
+
 from all_words import word_dictionary
-successful_guesses = []
-points = 0
+today = date.today().strftime("%Y-%m-%d")
+
+def read_guesses():
+    with open("successful_guesses.pkl", "rb") as f:
+        while True:
+            try:
+                data = pickle.load(f)
+            except EOFError:
+                break
+        return data
+    
+successful_guesses = read_guesses() 
+
+def update_sg():
+    with open("successful_guesses.pkl", "ab") as f:
+        pickle.dump(successful_guesses, f)
 
 def player_guess(word, necessary_letter, guess):
-    global points 
     word_letters = [n for n in word]
     guess_letters = [n for n in guess]
     unusable_letters = [n for n in guess_letters if n not in word_letters]
@@ -19,20 +35,28 @@ def player_guess(word, necessary_letter, guess):
     if guess not in word_dictionary:
         print(f"'{guess}' is not found in our dictionary.")
         return False
-    if guess in successful_guesses:
+    if guess in successful_guesses[today]:
         print(f"'{guess}' was already used.")
         return False
     if len(set(guess)) == 7:
-        points += (7 + len(guess))
-        successful_guesses.append(guess)
+        update_sg()
+        successful_guesses[today].append(guess)
         print(f"{guess}: Now that's a PANGRAM!!")
-        print(f"Your Points: {points}")
+        print(f"Your Points: {show_points()}")
         return True
-    points += 1 if len(guess) == 4 else len(guess)
-    successful_guesses.append(guess)
+    update_sg()
+    successful_guesses[today].append(guess)
     print(f"{guess}: Success!")
-    print(f"Your Points: {points}")
+    print(f"Your Points: {show_points()}")
     return True
 
 def show_points():
+    points = 0
+    for n in successful_guesses[today]:
+        if len(set(n)) == 7:
+            points += (7 + len(n))
+        elif len(n) > 4:
+            points += len(n)
+        else:
+            points += 1
     return points
