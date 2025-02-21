@@ -11,8 +11,6 @@ def main():
     possible_points = find_points(necessary_letter, sample_letters)
     win_condition = 100 if possible_points > 300 else (possible_points / 3)
     grats_unshown = True
-    read_guesses()
-    today_guesses = read_guesses()[today]
 
     print(f"Letters for {today}: |{necessary_letter.upper()}| {optional_letters}")
     print(f"Total Possible Points: {possible_points}")
@@ -28,8 +26,8 @@ def main():
             print("Good Bye!")
             exit()
         elif player_choice == "1":
-            print(f"{show_points()} of {win_condition} points in {len(today_guesses)} word{'' if len(today_guesses) == 1 else 's'}:")
-            print("None yet" if len(today_guesses) == 0 else sorted(today_guesses))
+            print(f"{show_points()} of {win_condition} points in {len(read_guesses()[today])} word{'' if len(read_guesses()[today]) == 1 else 's'}:")
+            print("None yet" if len(read_guesses()[today]) == 0 else sorted(read_guesses()[today]))
             print("=============")
             print(f"|{necessary_letter.upper()}| {optional_letters}")
         elif player_choice == "2":
