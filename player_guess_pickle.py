@@ -13,7 +13,9 @@ def read_guesses():
                 break
         return data
     
-successful_guesses = read_guesses() 
+successful_guesses = read_guesses()
+if today not in successful_guesses:
+    successful_guesses[today] = []
 
 def update_sg():
     with open("successful_guesses.pkl", "ab") as f:
@@ -39,13 +41,13 @@ def player_guess(word, necessary_letter, guess):
         print(f"'{guess}' was already used.")
         return False
     if len(set(guess)) == 7:
-        update_sg()
         successful_guesses[today].append(guess)
+        update_sg()
         print(f"{guess}: Now that's a PANGRAM!!")
         print(f"Your Points: {show_points()}")
         return True
-    update_sg()
     successful_guesses[today].append(guess)
+    update_sg()
     print(f"{guess}: Success!")
     print(f"Your Points: {show_points()}")
     return True
