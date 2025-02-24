@@ -1,5 +1,5 @@
 import random
-from player_guess_pickle import player_guess, show_points, read_guesses, today
+from player_guess_json import player_guess, show_points, read_guesses, today
 from results import find_words, find_pangrams, find_points
 from prompt_collection import prompt_collection
 
