@@ -24,11 +24,11 @@ def player_guess(word, necessary_letter, guess):
     if len(set(guess)) == 7:
         successful_guesses.append(guess)
         print(f"{guess}: Now that's a PANGRAM!!")
-        print(f"Your Points: {points}")
+        print(f"Your Points: {show_points()}")
         return True
     successful_guesses.append(guess)
     print(f"{guess}: Success!")
-    print(f"Your Points: {points}")
+    print(f"Your Points: {show_points()}")
     return True
 
 def show_points():
