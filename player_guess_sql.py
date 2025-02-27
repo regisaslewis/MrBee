@@ -1,24 +1,23 @@
 from all_words import word_dictionary
 from datetime import date
-import json
 from sql_creator import conn, cursor
 
 today = date.today().strftime("%Y-%m-%d")
 
 def read_guesses():
-    with open("sg_db.json", "r") as f:
-        data = json.load(f)
-        dict = json.loads(data)
-        if today not in dict:
-            dict.update({today: []})
-    return dict
+    today_table = cursor.execute(f'''SELECT word FROM successful_guesses WHERE date IS {today}''')
+    list = []
+    for row in today_table:
+        list.append(row)
+    return list
 
-successful_guesses = read_guesses()
-
-def update_sg():
-    with open("sg_db.json", "w") as f:
-        json_sg = json.dumps(successful_guesses)
-        json.dump(json_sg, f)
+def update_sg(word):
+    sql = '''
+        INSERT INTO successful_guesses (date, word)
+        VALUES (?, ?)
+    '''
+    cursor.execute(sql, (today, word))
+    conn.commit()
 
 def player_guess(word, necessary_letter, guess):
     word_letters = [n for n in word]
@@ -36,24 +35,22 @@ def player_guess(word, necessary_letter, guess):
     if guess not in word_dictionary:
         print(f"'{guess}' is not found in our dictionary.")
         return False
-    if guess in successful_guesses[today]:
+    if guess in read_guesses():
         print(f"'{guess}' was already used.")
         return False
     if len(set(guess)) == 7:
-        successful_guesses[today].append(guess)
-        update_sg()
+        update_sg(guess)
         print(f"{guess}: Now that's a PANGRAM!!")
         print(f"Your Points: {show_points()}")
         return True
-    successful_guesses[today].append(guess)
-    update_sg()
+    update_sg(guess)
     print(f"{guess}: Success!")
     print(f"Your Points: {show_points()}")
     return True
 
 def show_points():
     points = 0
-    for n in successful_guesses[today]:
+    for n in read_guesses():
         if len(set(n)) == 7:
             points += (7 + len(n))
         elif len(n) > 4:
