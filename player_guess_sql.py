@@ -5,11 +5,18 @@ from sql_creator import conn, cursor
 today = date.today().strftime("%Y-%m-%d")
 
 def read_guesses():
-    today_table = cursor.execute(f'''SELECT word FROM successful_guesses WHERE date IS {today}''')
+    sql = '''
+    SELECT word FROM successful_guesses
+    WHERE date = ?
+    '''
+    today_table = cursor.execute(sql, (today,))
     list = []
     for row in today_table:
-        list.append(row)
+        row_str = "".join(row)
+        list.append(row_str)
     return list
+    
+read_guesses()
 
 def update_sg(word):
     sql = '''

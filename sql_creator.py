@@ -6,5 +6,5 @@ cursor = conn.cursor()
 cursor.execute(
     '''CREATE TABLE IF NOT EXISTS successful_guesses
     (date text NOT NULL, word text)''')
-    
+
 conn.commit()
